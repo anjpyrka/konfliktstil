@@ -1,0 +1,342 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex">
+<style>:root{padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)} body{margin:0} img{max-width:100%} [hidden]{display:none!important}</style>
+<title>Konfliktstil-Selbsttest</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700&family=Source+Sans+3:wght@400;600&display=swap">
+<style>
+/* Layout: one calm reading column; questions as a numbered sheet, result as a style map plus five profile rows */
+:root {
+  --bg: #f5f6f1;
+  --surface: #ffffff;
+  --fg: #24282a;
+  --muted: #5b625c;
+  --line: #d9ddd2;
+  --accent: #5f7d00;
+  --accent-fill: #b8d63a;
+  --accent-soft: #eef4d6;
+  --warn: #9a5a00;
+  --font-display: "Bricolage Grotesque", "Segoe UI", system-ui, sans-serif;
+  --font-body: "Source Sans 3", "Segoe UI", system-ui, sans-serif;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #151819; --surface: #1d2122; --fg: #e8ebe3; --muted: #a3aaa2; --line: #343a37;
+    --accent: #c4e14a; --accent-fill: #a9c534; --accent-soft: #283014; --warn: #e3a54d;
+    color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #151819; --surface: #1d2122; --fg: #e8ebe3; --muted: #a3aaa2; --line: #343a37;
+  --accent: #c4e14a; --accent-fill: #a9c534; --accent-soft: #283014; --warn: #e3a54d;
+  color-scheme: dark;
+}
+* { box-sizing: border-box; }
+body {
+  background: var(--bg); color: var(--fg);
+  font-family: var(--font-body); font-size: 17px; line-height: 1.55;
+  padding-left: max(16px, env(safe-area-inset-left, 0px));
+  padding-right: max(16px, env(safe-area-inset-right, 0px));
+  padding-block: 32px 48px;
+}
+.wrap { max-width: 760px; margin: 0 auto; display: grid; gap: 40px; }
+h1, h2, h3 { font-family: var(--font-display); line-height: 1.15; text-wrap: balance; margin: 0; }
+h1 { font-size: clamp(2rem, 5vw, 2.8rem); font-weight: 700; letter-spacing: -0.01em; }
+h2 { font-size: 1.5rem; font-weight: 700; }
+h3 { font-size: 1.15rem; font-weight: 700; }
+p { margin: 0; max-width: 65ch; }
+.eyebrow { font-size: 0.8rem; text-transform: uppercase; letter-spacing: 0.08em; color: var(--muted); font-weight: 600; }
+header { display: grid; gap: 14px; }
+.lead { font-size: 1.1rem; }
+.facts { display: flex; flex-wrap: wrap; gap: 8px 20px; color: var(--muted); font-size: 0.95rem; }
+.facts span::before { content: "\2022"; color: var(--accent); margin-right: 8px; }
+
+.scale-key { display: grid; grid-template-columns: repeat(5, 1fr); gap: 4px; font-size: 0.8rem; color: var(--muted); text-align: center; }
+
+ol.items { list-style: none; margin: 0; padding: 0; display: grid; gap: 0; counter-reset: item; }
+ol.items li { counter-increment: item; display: grid; grid-template-columns: 2.2rem 1fr; gap: 6px 10px; padding: 18px 0; border-top: 1px solid var(--line); }
+ol.items li::before { content: counter(item); font-family: var(--font-display); font-weight: 700; color: var(--muted); font-variant-numeric: tabular-nums; padding-top: 1px; }
+ol.items li.missing::before { color: var(--warn); }
+.q-text { min-width: 0; }
+fieldset { grid-column: 2; border: 0; margin: 0; padding: 0; min-width: 0; }
+fieldset legend { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); }
+.opts { display: grid; grid-template-columns: repeat(5, 1fr); gap: 6px; }
+.opts input { position: absolute; opacity: 0; pointer-events: none; }
+.opts label { display: grid; place-items: center; min-height: 44px; border: 1px solid var(--line); border-radius: 8px; background: var(--surface); cursor: pointer; font-weight: 600; font-variant-numeric: tabular-nums; transition: background .12s, border-color .12s; }
+.opts label small { display: block; font-weight: 400; font-size: 0.72rem; color: var(--muted); line-height: 1.1; }
+.opts label:hover { border-color: var(--accent); }
+.opts input:checked + label { background: var(--accent-fill); border-color: var(--accent-fill); color: #1b1f10; }
+.opts input:checked + label small { color: #2c3318; }
+.opts input:focus-visible + label { outline: 3px solid var(--accent); outline-offset: 2px; }
+
+.submit-row { display: flex; flex-wrap: wrap; align-items: center; gap: 12px 20px; border-top: 1px solid var(--line); padding-top: 20px; }
+button { font: inherit; font-weight: 600; border-radius: 8px; padding: 12px 22px; cursor: pointer; border: 1px solid var(--fg); background: var(--fg); color: var(--bg); }
+button.ghost { background: transparent; color: var(--fg); }
+button:focus-visible { outline: 3px solid var(--accent); outline-offset: 2px; }
+.progress { color: var(--muted); font-variant-numeric: tabular-nums; }
+.msg { color: var(--warn); font-weight: 600; }
+
+#result { display: grid; gap: 28px; }
+.summary { background: var(--accent-soft); border-radius: 12px; padding: 22px; display: grid; gap: 8px; }
+.summary strong { font-family: var(--font-display); font-size: 1.35rem; }
+.map-box { overflow-x: auto; }
+svg.map { width: 100%; max-width: 560px; height: auto; display: block; }
+.rows { display: grid; gap: 0; }
+.row { display: grid; gap: 10px; padding: 18px 0; border-top: 1px solid var(--line); }
+.row-head { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 12px; align-items: baseline; }
+.score { font-variant-numeric: tabular-nums; color: var(--muted); }
+.bar { height: 10px; border-radius: 5px; background: var(--line); overflow: hidden; }
+.bar span { display: block; height: 100%; background: var(--accent-fill); border-radius: 5px; }
+.tag { display: inline-block; font-size: 0.75rem; font-weight: 600; letter-spacing: 0.04em; text-transform: uppercase; padding: 2px 8px; border-radius: 999px; background: var(--accent-fill); color: #1b1f10; margin-left: 8px; vertical-align: middle; }
+.tag.low { background: var(--line); color: var(--fg); }
+dl { margin: 0; display: grid; grid-template-columns: 11rem 1fr; gap: 6px 14px; font-size: 0.97rem; }
+dt { color: var(--muted); font-weight: 600; }
+dd { margin: 0; min-width: 0; }
+.reflect { display: grid; gap: 10px; }
+.reflect ul { margin: 0; padding-left: 1.2em; display: grid; gap: 6px; }
+.note { font-size: 0.9rem; color: var(--muted); }
+
+footer { display: flex; flex-wrap: wrap; align-items: center; gap: 14px 20px; border-top: 1px solid var(--line); padding-top: 22px; font-size: 0.9rem; color: var(--muted); }
+.logo-plate { background: #ffffff; border-radius: 8px; padding: 8px 12px; display: inline-flex; }
+.logo-plate img { height: 34px; width: auto; display: block; }
+
+@media (max-width: 560px) {
+  body { font-size: 16px; }
+  ol.items li { grid-template-columns: 1.8rem 1fr; }
+  .opts label small { display: none; }
+  dl { grid-template-columns: 1fr; gap: 2px; }
+  dd { margin-bottom: 8px; }
+}
+@media (prefers-reduced-motion: reduce) { * { transition: none !important; scroll-behavior: auto !important; } }
+</style>
+</head>
+<body>
+
+<div class="wrap">
+  <header>
+    <div class="eyebrow">Vorbereitung Leadership Training · 4. und 5. November</div>
+    <h1>Wie gehst Du mit Konflikten um?</h1>
+    <p class="lead">25 Aussagen, rund 10 Minuten. Denk an Situationen bei der Arbeit, in denen Du mit jemandem nicht einer Meinung bist: mit Kolleginnen und Kollegen, mit Deinem Team oder mit Deiner Führungskraft. Antworte spontan, so wie Du Dich tatsächlich verhältst, nicht so, wie Du Dich gern verhalten würdest.</p>
+    <div class="facts">
+      <span>Es gibt keine richtigen oder falschen Antworten</span>
+      <span>Dein Ergebnis siehst nur Du</span>
+      <span>Nichts wird gespeichert oder übertragen</span>
+    </div>
+  </header>
+
+  <form id="quiz" novalidate>
+    <div class="scale-key" aria-hidden="true">
+      <span>1 · trifft gar nicht zu</span><span>2</span><span>3</span><span>4</span><span>5 · trifft voll zu</span>
+    </div>
+    <ol class="items" id="items"></ol>
+    <div class="submit-row">
+      <button type="submit" id="evaluate">Auswerten</button>
+      <span class="progress" id="progress" aria-live="polite">0 von 25 beantwortet</span>
+      <span class="msg" id="msg" role="alert"></span>
+    </div>
+  </form>
+
+  <section id="result" hidden aria-labelledby="res-title">
+    <div class="eyebrow">Dein Ergebnis</div>
+    <h2 id="res-title">Dein Konfliktprofil</h2>
+    <div class="summary" id="summary"></div>
+    <div class="map-box"><svg class="map" id="map" viewBox="0 0 560 420" role="img" aria-label="Die fünf Konfliktstile auf den Achsen Durchsetzung und Kooperation, Kreisgröße nach Deinem Wert"></svg></div>
+    <p class="note">Die Karte zeigt die fünf Stile auf zwei Achsen: wie stark Du Deine eigenen Anliegen verfolgst und wie stark Du auf die Anliegen der anderen eingehst. Je größer und kräftiger der Kreis, desto häufiger nutzt Du den Stil.</p>
+    <div class="rows" id="rows"></div>
+    <div class="reflect">
+      <h3>Für Deine Jahresgespräche</h3>
+      <ul>
+        <li>In welchem Gespräch, das ansteht, wird Dein bevorzugter Stil Dir helfen, und wo könnte er Dir im Weg stehen?</li>
+        <li>Welchen Stil nutzt Du am wenigsten, und in welcher Situation wäre genau der hilfreich?</li>
+        <li>Wann warst Du zuletzt kurz davor, etwas zuzusagen, nur damit die Stimmung gut bleibt?</li>
+      </ul>
+      <p>Wir arbeiten an Tag 1 mit Deinem Ergebnis. Notiere Dir dafür Deine Werte oder mach einen Screenshot; die Seite merkt sich nichts.</p>
+    </div>
+    <div><button type="button" class="ghost" id="restart">Neu beginnen</button></div>
+  </section>
+
+  <footer>
+    <span class="logo-plate"><img src="data:image/png;base64,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" alt="Leading Mindfully"></span>
+    <span>Die fünf Stile folgen dem Konfliktmodell von Thomas und Kilmann (1974). Die Aussagen sind für dieses Training eigens formuliert. Der Test ist eine Einladung zur Selbstreflexion und kein wissenschaftlich normiertes Verfahren.</span>
+  </footer>
+</div>
+
+<script>
+(function () {
+  var STYLES = {
+    D: { name: "Durchsetzen", x: 470, y: 315,
+      good: "schnell entschieden werden muss, es um Sicherheit, Qualität oder klare Regeln geht oder Du von etwas fest überzeugt bist",
+      risk: "andere verstummen, Widerstand wird leise statt offen, und Du hörst wichtige Informationen nicht mehr",
+      talk: "Du redest viel und überzeugst, statt zu fragen. Dein Gegenüber nickt, trägt das Ergebnis aber nicht mit.",
+      grow: "Stell zuerst zwei offene Fragen, bevor Du Deine Einschätzung gibst." },
+    N: { name: "Nachgeben", x: 90, y: 90,
+      good: "das Thema dem anderen deutlich wichtiger ist als Dir, Du Dich geirrt hast oder die Beziehung gerade Vorrang hat",
+      risk: "Deine eigenen Anliegen untergehen und andere nicht wissen, was Du eigentlich erwartest",
+      talk: "Du machst Zusagen, um Enttäuschung abzufedern, gerade bei Gehalt oder Entwicklung.",
+      grow: "Sag „Das kläre ich und melde mich bis …“ statt einer spontanen Zusage." },
+    A: { name: "Ausweichen", x: 90, y: 315,
+      good: "ein Thema unwichtig ist, die Gemüter gerade zu erhitzt sind oder Dir noch Informationen fehlen",
+      risk: "Probleme größer werden und andere nicht wissen, woran sie mit Dir sind",
+      talk: "Kritische Punkte werden weichgezeichnet oder fehlen ganz, und Minderleistung wird spät angesprochen.",
+      grow: "Leg den schwierigsten Punkt ins erste Drittel des Gesprächs, nicht ans Ende." },
+    K: { name: "Kompromiss", x: 280, y: 210,
+      good: "Zeitdruck herrscht, beide Seiten ähnlich stark sind oder eine Zwischenlösung reicht",
+      risk: "Lösungen entstehen, mit denen niemand ganz zufrieden ist, und die eigentlichen Gründe unverstanden bleiben",
+      talk: "Bei der Einschätzung trefft Ihr Euch in der Mitte, obwohl Deine Beobachtungen etwas anderes sagen.",
+      grow: "Frag erst, was hinter der Position steckt, und verhandle danach." },
+    G: { name: "Gemeinsam lösen", x: 470, y: 90,
+      good: "das Thema wichtig ist, die Lösung lange tragen soll und beide Seiten gute Gründe haben",
+      risk: "es viel Zeit kostet oder die Entscheidung eigentlich schon feststeht",
+      talk: "Du suchst gemeinsam nach Lösungen, wo eine klare Ansage nötig wäre, etwa bei feststehenden Rahmenbedingungen.",
+      grow: "Kläre vorab für Dich, was verhandelbar ist und was nicht, und sag das offen." }
+  };
+  var ITEMS = [
+    ["D", "Wenn ich von einer Lösung überzeugt bin, setze ich sie auch gegen Widerstand durch."],
+    ["N", "Wenn jemandem ein Punkt sehr wichtig ist, lasse ich ihm den Vorrang, auch wenn ich es anders sehe."],
+    ["G", "Ich will verstehen, was hinter der Position des anderen steckt, bevor ich eine Lösung vorschlage."],
+    ["A", "Unangenehme Themen schiebe ich gern auf, bis sich ein besserer Zeitpunkt ergibt."],
+    ["K", "Ich schlage gern einen Mittelweg vor, bei dem beide Seiten etwas abgeben."],
+    ["N", "Mir ist eine gute Beziehung wichtiger, als in einer Sachfrage recht zu behalten."],
+    ["D", "In einer Diskussion argumentiere ich so lange, bis die anderen meine Sicht nachvollziehen."],
+    ["A", "Wenn eine Diskussion hitzig wird, ziehe ich mich lieber zurück."],
+    ["G", "Ich lege meine Sicht offen auf den Tisch und frage dann nach der Sicht der anderen."],
+    ["K", "Wenn wir festhängen, suche ich eine Lösung, mit der alle leben können, auch wenn sie nicht ideal ist."],
+    ["D", "Wenn viel auf dem Spiel steht, entscheide ich lieber selbst, statt lange abzustimmen."],
+    ["G", "Ich investiere lieber mehr Zeit, wenn wir dadurch eine Lösung finden, hinter der alle stehen."],
+    ["N", "Ich gehe auf Wünsche anderer ein, um Spannungen zu vermeiden."],
+    ["K", "Ich bin bereit, einen Teil meiner Forderung aufzugeben, wenn die andere Seite das auch tut."],
+    ["A", "Manche Konflikte lösen sich von selbst, wenn man ihnen Zeit lässt."],
+    ["D", "Ich sage klar, was ich erwarte, auch wenn die Stimmung darunter kurz leidet."],
+    ["A", "Ich vermeide Gespräche, in denen ich jemanden enttäuschen könnte."],
+    ["G", "Unterschiedliche Meinungen sind für mich ein Anlass, gemeinsam bessere Ideen zu entwickeln."],
+    ["K", "Eine schnelle, faire Einigung ist mir lieber als eine lange Suche nach der perfekten Lösung."],
+    ["N", "Wenn mein Gegenüber enttäuscht reagiert, rücke ich von meiner Position ab."],
+    ["G", "Ich suche nach Lösungen, die die wichtigsten Anliegen beider Seiten erfüllen."],
+    ["D", "Wenn jemand mir widerspricht, halte ich meine Position zunächst fest."],
+    ["K", "Ich verhandle gern nach dem Prinzip: ein Schritt von Dir, ein Schritt von mir."],
+    ["A", "Wenn ich unsicher bin, wie jemand reagiert, spreche ich das Thema lieber nicht an."],
+    ["N", "Ich stelle meine eigenen Anliegen zurück, wenn das Team dadurch ruhiger arbeiten kann."]
+  ];
+  var LABELS = ["gar nicht", "eher nicht", "teils", "eher", "voll"];
+
+  var list = document.getElementById("items");
+  ITEMS.forEach(function (it, i) {
+    var li = document.createElement("li");
+    li.id = "item-" + i;
+    var html = '<div class="q-text" id="q' + i + '">' + it[1] + '</div><fieldset aria-labelledby="q' + i + '"><legend>Aussage ' + (i + 1) + '</legend><div class="opts">';
+    for (var v = 1; v <= 5; v++) {
+      var id = "a" + i + "v" + v;
+      html += '<input type="radio" name="a' + i + '" id="' + id + '" value="' + v + '"><label for="' + id + '">' + v + '<small>' + LABELS[v - 1] + '</small></label>';
+    }
+    li.innerHTML = html + '</div></fieldset>';
+    list.appendChild(li);
+  });
+
+  var form = document.getElementById("quiz");
+  var progress = document.getElementById("progress");
+  var msg = document.getElementById("msg");
+  function answered() {
+    var n = 0;
+    for (var i = 0; i < ITEMS.length; i++) if (form.querySelector('input[name="a' + i + '"]:checked')) n++;
+    return n;
+  }
+  form.addEventListener("change", function (e) {
+    progress.textContent = answered() + " von 25 beantwortet";
+    var li = e.target.closest("li");
+    if (li) li.classList.remove("missing");
+    if (answered() === ITEMS.length) msg.textContent = "";
+  });
+
+  form.addEventListener("submit", function (e) {
+    e.preventDefault();
+    var missing = [];
+    var scores = { D: 0, N: 0, A: 0, K: 0, G: 0 };
+    ITEMS.forEach(function (it, i) {
+      var c = form.querySelector('input[name="a' + i + '"]:checked');
+      var li = document.getElementById("item-" + i);
+      if (!c) { missing.push(i + 1); li.classList.add("missing"); }
+      else { scores[it[0]] += Number(c.value); li.classList.remove("missing"); }
+    });
+    if (missing.length) {
+      msg.textContent = "Noch offen: Aussage " + missing.join(", ") + ".";
+      document.getElementById("item-" + (missing[0] - 1)).scrollIntoView({ block: "center" });
+      return;
+    }
+    msg.textContent = "";
+    render(scores);
+  });
+
+  function render(scores) {
+    var keys = ["D", "N", "A", "K", "G"];
+    var max = Math.max.apply(null, keys.map(function (k) { return scores[k]; }));
+    var min = Math.min.apply(null, keys.map(function (k) { return scores[k]; }));
+    var top = keys.filter(function (k) { return scores[k] === max; });
+    var low = keys.filter(function (k) { return scores[k] === min; });
+    var names = function (arr) { return arr.map(function (k) { return STYLES[k].name; }).join(" und "); };
+    var sum = document.getElementById("summary");
+    if (max === min) {
+      sum.innerHTML = '<strong>Alle fünf Stile liegen gleichauf.</strong><p>Du wechselst je nach Situation. Schau bei den Beschreibungen, welcher Stil in Deinen anstehenden Gesprächen am meisten zählt.</p>';
+    } else {
+      sum.innerHTML = '<strong>Am häufigsten: ' + names(top) + '</strong><p>Am seltensten nutzt Du ' + names(low) + '. Jeder Stil ist in manchen Situationen der richtige. Wirksam wird es, wenn Du bewusst wechseln kannst.</p>';
+    }
+
+    // map
+    var svg = document.getElementById("map");
+    var s = '';
+    s += '<line x1="40" y1="380" x2="530" y2="380" stroke="var(--muted)" stroke-width="1.5"/>';
+    s += '<polygon points="530,375 540,380 530,385" fill="var(--muted)"/>';
+    s += '<line x1="40" y1="380" x2="40" y2="20" stroke="var(--muted)" stroke-width="1.5"/>';
+    s += '<polygon points="35,20 40,10 45,20" fill="var(--muted)"/>';
+    s += '<text x="530" y="405" text-anchor="end" font-size="13" fill="var(--muted)">eigene Anliegen durchsetzen →</text>';
+    s += '<text transform="translate(22 380) rotate(-90)" font-size="13" fill="var(--muted)">auf Anliegen anderer eingehen →</text>';
+    keys.forEach(function (k) {
+      var st = STYLES[k];
+      var r = 14 + (scores[k] - 5) * 2.1;
+      var isTop = top.indexOf(k) > -1 && max !== min;
+      var op = 0.25 + (scores[k] - 5) / 20 * 0.75;
+      s += '<circle cx="' + st.x + '" cy="' + st.y + '" r="' + r.toFixed(1) + '" fill="var(--accent-fill)" fill-opacity="' + op.toFixed(2) + '" stroke="' + (isTop ? 'var(--accent)' : 'none') + '" stroke-width="3"/>';
+      var ty = st.y + r + 18;
+      if (ty > 368) ty = st.y - r - 10;
+      s += '<text x="' + st.x + '" y="' + ty.toFixed(0) + '" text-anchor="middle" font-size="14" font-weight="600" fill="var(--fg)">' + st.name + ' · ' + scores[k] + '</text>';
+    });
+    svg.innerHTML = s;
+
+    // rows, highest first
+    var order = keys.slice().sort(function (a, b) { return scores[b] - scores[a]; });
+    var rows = document.getElementById("rows");
+    rows.innerHTML = order.map(function (k) {
+      var st = STYLES[k];
+      var tag = '';
+      if (max !== min && top.indexOf(k) > -1) tag = '<span class="tag">am häufigsten</span>';
+      else if (max !== min && low.indexOf(k) > -1) tag = '<span class="tag low">am seltensten</span>';
+      var pct = Math.round((scores[k] - 5) / 20 * 100);
+      return '<div class="row"><div class="row-head"><h3>' + st.name + tag + '</h3><span class="score">' + scores[k] + ' von 25</span></div>' +
+        '<div class="bar" aria-hidden="true"><span style="width:' + Math.max(pct, 3) + '%"></span></div>' +
+        '<dl><dt>Hilfreich, wenn</dt><dd>' + st.good + '.</dd>' +
+        '<dt>Kehrseite, wenn</dt><dd>' + st.risk + '.</dd>' +
+        '<dt>Im Jahresgespräch</dt><dd>' + st.talk + '</dd>' +
+        '<dt>Zum Ausprobieren</dt><dd>' + st.grow + '</dd></dl></div>';
+    }).join("");
+
+    var res = document.getElementById("result");
+    res.hidden = false;
+    res.scrollIntoView({ block: "start" });
+  }
+
+  document.getElementById("restart").addEventListener("click", function () {
+    form.reset();
+    document.querySelectorAll("li.missing").forEach(function (li) { li.classList.remove("missing"); });
+    progress.textContent = "0 von 25 beantwortet";
+    msg.textContent = "";
+    document.getElementById("result").hidden = true;
+    window.scrollTo(0, 0);
+  });
+})();
+</script>
+</body>
+</html>
